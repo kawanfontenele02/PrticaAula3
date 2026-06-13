@@ -1,0 +1,5 @@
+../Core/Src/LevelSensor.c:18:6:LevelSensor_Init	1
+../Core/Src/LevelSensor.c:24:6:LevelSensor_NewSample	1
+../Core/Src/LevelSensor.c:29:6:LevelSensor_IsReady	1
+../Core/Src/LevelSensor.c:34:7:LevelSensor_GetVoltage	1
+../Core/Src/LevelSensor.c:45:7:LevelSensor_GetPercent	1

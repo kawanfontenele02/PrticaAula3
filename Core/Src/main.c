@@ -25,6 +25,9 @@
 #include "usb_otg.h"
 #include "gpio.h"
 #include <stdio.h>
+#include "Bsp.h"
+#include "LevelSensor.h"
+#include <stdbool.h>
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -100,16 +103,40 @@ int main(void)
   MX_TIM6_Init();
   MX_USART3_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
+
+  Bsp_Init();
+  LevelSensor_Init();
+  Bsp_StartTimerInterrupt();
   /* USER CODE BEGIN 2 */
-  printf("Sistema iniciado\r\n");
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  uint16_t raw;
+  float voltage;
+  float percent;
   while (1)
   {
     /* USER CODE END WHILE */
+	  if(Bsp_GetTimerFlag())
+	  {
+	  	Bsp_ClearTimerFlag();
 
+	  	raw = Bsp_ReadAdcPolling();
+
+	  	LevelSensor_NewSample(raw);
+
+	  	if(LevelSensor_IsReady())
+	  	{
+	  		voltage = LevelSensor_GetVoltage();
+
+	  		percent = LevelSensor_GetPercent();
+
+	  		printf("Nivel: %.2f %% | Tensao: %.2f V\r\n",percent, voltage);
+	 		LevelSensor_Init();
+	  	}
+	  }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

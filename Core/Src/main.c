@@ -24,7 +24,7 @@
 #include "usart.h"
 #include "usb_otg.h"
 #include "gpio.h"
-
+#include <stdio.h>
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -101,7 +101,7 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
   /* USER CODE BEGIN 2 */
-
+  printf("Sistema iniciado\r\n");
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -173,7 +173,11 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+int __io_putchar(int ch)
+{
+    HAL_UART_Transmit(&huart3, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
+    return ch;
+}
 /* USER CODE END 4 */
 
  /* MPU Configuration */

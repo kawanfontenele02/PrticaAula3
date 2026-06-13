@@ -178,6 +178,13 @@ int __io_putchar(int ch)
     HAL_UART_Transmit(&huart3, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
     return ch;
 }
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	if(htim->Instance == TIM6)
+	{
+		bsp.timerFlag = true;
+	}
+}
 /* USER CODE END 4 */
 
  /* MPU Configuration */

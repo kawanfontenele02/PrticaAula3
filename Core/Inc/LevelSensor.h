@@ -1,13 +1,20 @@
-/*
- * LevelSensor.h
- *
- *  Created on: 13 de jun. de 2026
- *      Author: kawan
- */
+#ifndef LEVEL_SENSOR_H
+#define LEVEL_SENSOR_H
 
-#ifndef INC_LEVELSENSOR_H_
-#define INC_LEVELSENSOR_H_
+#include "main.h"
+#include <stdbool.h>
 
+#define dLEVEL_SENSOR_NUMBER 20
+#define dLEVEL_SENSOR_ADC_MAX 4095
 
+void LevelSensor_Init(void);
 
-#endif /* INC_LEVELSENSOR_H_ */
+void LevelSensor_NewSample(uint16_t rawValue);
+
+bool LevelSensor_IsReady(void);
+
+float LevelSensor_GetVoltage(void);
+
+float LevelSensor_GetPercent(void);
+
+#endif
